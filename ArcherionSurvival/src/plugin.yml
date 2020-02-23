@@ -1,0 +1,33 @@
+main: de.Modex.survival.Main
+name: ArcherionSurvival
+version: 1.0
+author: Modex
+api-version: 1.13
+
+commands:
+  back:
+    aliases: [b, ba]
+  delwarp:
+  invsee:
+  listwarp:
+    aliases: [warps, lw]
+  pos:
+  setwarp:
+  warp:
+  xpt:
+  whisper:
+    aliases: [w, pm, dm]
+  reply:
+    aliases: [r, rep]
+  home:
+    aliases: [h]
+  sethome:
+    aliases: [sh]
+  delhome:
+    aliases: [dh]
+  homes:
+  blockinfo:
+    aliases: [bi]
+  restore:
+  deaths:
+  ping:

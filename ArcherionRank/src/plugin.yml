@@ -1,0 +1,7 @@
+main: de.Modex.rank.Main
+name: ArcherionRanks
+version: 1.0
+author: Modex
+api-version: 1.13
+
+commands:

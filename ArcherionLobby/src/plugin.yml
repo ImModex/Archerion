@@ -1,0 +1,14 @@
+main: de.Modex.lobby.Main
+name: ArcherionLobby
+version: 1.0
+author: Modex
+api-version: 1.13
+
+commands:
+  build:
+    aliases: [b]
+    description: Toggles if a player can build or not
+  setmode:
+    aliases: [sm]
+    description: Sets a gamemode for the navigator
+  test:
