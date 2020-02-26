@@ -6,6 +6,7 @@ import de.Modex.rank.listener.PlayerChatListener;
 import de.Modex.rank.utils.Data;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.Scoreboard;
 
@@ -22,6 +23,11 @@ public class Main extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new PlayerChatListener(), this);
 
         scoreboardSetup();
+
+        for (Player p : Bukkit.getOnlinePlayers()) {
+            Data.updatePrefix(p);
+        }
+
         System.out.println(Data.prefix + "Plugin has been loaded!");
     }
 

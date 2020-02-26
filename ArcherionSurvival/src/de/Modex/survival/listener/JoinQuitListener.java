@@ -1,15 +1,10 @@
 package de.Modex.survival.listener;
 
-import de.Modex.survival.Main;
 import de.Modex.survival.utils.Data;
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import ru.tehkode.permissions.bukkit.PermissionsEx;
 
 public class JoinQuitListener implements Listener {
 
