@@ -21,6 +21,7 @@ public class PlayerMoveListener implements Listener {
                 Data.teleportCooldown.remove(p.getUniqueId());
                 Data.teleportTask.get(p.getUniqueId()).cancel();
                 Data.teleportTask.remove(p.getUniqueId());
+                Data.teleportTestCooldown.remove(p.getUniqueId());
             }
         }
     }
