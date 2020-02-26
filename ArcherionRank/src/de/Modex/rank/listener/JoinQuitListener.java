@@ -19,12 +19,6 @@ public class JoinQuitListener implements Listener {
             PermissionsEx.getUser(p).addGroup("Player");
         }
         setPrefix(p);
-        e.setJoinMessage("§8[§a+§8] §8" + e.getPlayer().getDisplayName());
-    }
-
-    @EventHandler
-    public void onQuit(PlayerQuitEvent e) {
-        e.setQuitMessage("§8[§c-§8] §8" + e.getPlayer().getDisplayName());
     }
 
     public static void setPrefix(Player p) {
