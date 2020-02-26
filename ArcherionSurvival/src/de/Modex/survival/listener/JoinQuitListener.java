@@ -13,7 +13,7 @@ import ru.tehkode.permissions.bukkit.PermissionsEx;
 
 public class JoinQuitListener implements Listener {
 
-    @EventHandler (priority = EventPriority.HIGHEST)
+    @EventHandler
     public void onJoin(PlayerJoinEvent e) {
         try {
             e.setJoinMessage("§8[§a+§8] §8" + e.getPlayer().getDisplayName());
@@ -22,7 +22,7 @@ public class JoinQuitListener implements Listener {
         }
     }
 
-    @EventHandler (priority = EventPriority.HIGHEST)
+    @EventHandler
     public void onQuit(PlayerQuitEvent e) {
         try {
             e.setQuitMessage("§8[§c-§8] §8" + e.getPlayer().getDisplayName());

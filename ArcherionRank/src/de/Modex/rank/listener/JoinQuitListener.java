@@ -5,6 +5,7 @@ import de.Modex.rank.utils.Data;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -12,7 +13,7 @@ import ru.tehkode.permissions.bukkit.PermissionsEx;
 
 public class JoinQuitListener implements Listener {
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onJoin(PlayerJoinEvent e) {
         Player p = e.getPlayer();
         if (!PermissionsEx.getUser(p).inGroup("Owner") && !PermissionsEx.getUser(p).inGroup("Staff") && !PermissionsEx.getUser(p).inGroup("Friend") && !PermissionsEx.getUser(p).inGroup("Donator") && !PermissionsEx.getUser(p).inGroup("Player")) {
@@ -21,7 +22,7 @@ public class JoinQuitListener implements Listener {
         setPrefix(p);
     }
 
-    public static void setPrefix(Player p) {
+    private void setPrefix(Player p) {
 
         String team = "";
 
@@ -45,7 +46,7 @@ public class JoinQuitListener implements Listener {
             p.setDisplayName(Data.prefixStaff + p.getName());
         } else if (PermissionsEx.getUser(p).inGroup("Friend")) {
             p.setDisplayName(Data.prefixFriend + p.getName());
-        }else if (PermissionsEx.getUser(p).inGroup("Donator")) {
+        } else if (PermissionsEx.getUser(p).inGroup("Donator")) {
             p.setDisplayName(Data.prefixDonator + p.getName());
         } else if (PermissionsEx.getUser(p).inGroup("Player")) {
             p.setDisplayName(Data.prefixPlayer + p.getName());
