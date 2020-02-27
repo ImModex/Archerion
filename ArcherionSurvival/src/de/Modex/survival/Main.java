@@ -91,7 +91,7 @@ public class Main extends JavaPlugin {
                         world.getEntities().stream().filter(Item.class::isInstance).forEach(Entity::remove);
 
                         for (Entity e : world.getEntities()) {
-                            if (e instanceof Monster || e.getType().equals(EntityType.PHANTOM) && !e.getType().equals(EntityType.HORSE) && !e.getType().equals(EntityType.SKELETON_HORSE) && !e.getType().equals(EntityType.ZOMBIE_HORSE) && !e.getType().equals(EntityType.VILLAGER) && !e.getType().equals(EntityType.ZOMBIE_VILLAGER) && !e.getType().equals(EntityType.MINECART) && !e.getType().equals(EntityType.MINECART_CHEST) && !e.getType().equals(EntityType.MINECART_FURNACE) && !e.getType().equals(EntityType.MINECART_HOPPER) && !e.getType().equals(EntityType.MINECART_MOB_SPAWNER)) {
+                            if (e instanceof Monster || e.getType().equals(EntityType.PHANTOM) && !e.getType().equals(EntityType.ENDER_CRYSTAL) && !e.getType().equals(EntityType.ENDER_DRAGON) && !e.getType().equals(EntityType.WITHER_SKULL) && !e.getType().equals(EntityType.WITHER) && !e.getType().equals(EntityType.HORSE) && !e.getType().equals(EntityType.SKELETON_HORSE) && !e.getType().equals(EntityType.ZOMBIE_HORSE) && !e.getType().equals(EntityType.VILLAGER) && !e.getType().equals(EntityType.ZOMBIE_VILLAGER) && !e.getType().equals(EntityType.MINECART) && !e.getType().equals(EntityType.MINECART_CHEST) && !e.getType().equals(EntityType.MINECART_FURNACE) && !e.getType().equals(EntityType.MINECART_HOPPER) && !e.getType().equals(EntityType.MINECART_MOB_SPAWNER)) {
                                 if (e.getCustomName() == null) {
                                     e.remove();
                                 }

@@ -2,13 +2,14 @@ package de.Modex.survival.listener;
 
 import de.Modex.survival.utils.Data;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 public class JoinQuitListener implements Listener {
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onJoin(PlayerJoinEvent e) {
         try {
             e.setJoinMessage("§8[§a+§8] §8" + e.getPlayer().getDisplayName());
@@ -17,7 +18,7 @@ public class JoinQuitListener implements Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onQuit(PlayerQuitEvent e) {
         try {
             e.setQuitMessage("§8[§c-§8] §8" + e.getPlayer().getDisplayName());

@@ -9,12 +9,10 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 public class JoinQuitListener implements Listener {
 
-    @EventHandler(priority = EventPriority.HIGHEST)
+    @EventHandler(priority = EventPriority.LOWEST)
     public void onJoin(PlayerJoinEvent e) {
         Player p = e.getPlayer();
 
         Data.updatePrefix(p);
     }
-
-
 }
