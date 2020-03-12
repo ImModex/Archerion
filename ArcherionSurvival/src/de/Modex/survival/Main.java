@@ -47,8 +47,8 @@ public class Main extends JavaPlugin {
         getCommand("listwarp").setExecutor(new listwarp());
         getCommand("invsee").setExecutor(new invsee());
         getCommand("back").setExecutor(new back());
-        getCommand("whisper").setExecutor(new whisper());
-        getCommand("reply").setExecutor(new reply());
+        //getCommand("whisper").setExecutor(new whisper());
+        //getCommand("reply").setExecutor(new reply());
         getCommand("home").setExecutor(new home());
         getCommand("sethome").setExecutor(new sethome());
         getCommand("delhome").setExecutor(new delhome());
