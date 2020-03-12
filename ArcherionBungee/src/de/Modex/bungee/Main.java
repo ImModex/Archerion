@@ -1,8 +1,10 @@
 package de.Modex.bungee;
 
 import de.Modex.bungee.commands.lobby;
+import de.Modex.bungee.commands.maintenance;
 import de.Modex.bungee.commands.reply;
 import de.Modex.bungee.commands.whisper;
+import de.Modex.bungee.listener.ServerConnectListener;
 import de.Modex.bungee.utils.Data;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
@@ -15,9 +17,12 @@ public class Main extends Plugin {
     @Override
     public void onEnable() {
 
+        getProxy().getPluginManager().registerListener(this, new ServerConnectListener());
+
         getProxy().getPluginManager().registerCommand(this, new lobby());
         getProxy().getPluginManager().registerCommand(this, new whisper());
         getProxy().getPluginManager().registerCommand(this, new reply());
+        getProxy().getPluginManager().registerCommand(this, new maintenance());
         startTablistTimer();
 
         System.out.println(Data.prefix + "Plugin has been enabled!");
