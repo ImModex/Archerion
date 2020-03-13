@@ -10,12 +10,12 @@ import ru.tehkode.permissions.bukkit.PermissionsEx;
 
 public class PlayerChatListener implements Listener {
 
-    @EventHandler (priority = EventPriority.HIGHEST)
+    @EventHandler(priority = EventPriority.LOWEST)
     public void on(AsyncPlayerChatEvent e) {
         Player p = e.getPlayer();
         String msg = e.getMessage();
 
-        if(PermissionsEx.getUser(p).has("archerion.color")){
+        if (PermissionsEx.getUser(p).has("archerion.color")) {
             msg = msg.replace("&", "§");
         }
 
@@ -25,7 +25,7 @@ public class PlayerChatListener implements Listener {
             e.setFormat(Data.prefixStaff + p.getName() + " §7» " + msg);
         } else if (PermissionsEx.getUser(p).inGroup("Friend")) {
             e.setFormat(Data.prefixFriend + p.getName() + " §7» " + msg);
-        }else if (PermissionsEx.getUser(p).inGroup("Donator")) {
+        } else if (PermissionsEx.getUser(p).inGroup("Donator")) {
             e.setFormat(Data.prefixDonator + p.getName() + " §7» " + msg);
         } else if (PermissionsEx.getUser(p).inGroup("Player")) {
             e.setFormat(Data.prefixPlayer + p.getName() + " §7» " + msg);
