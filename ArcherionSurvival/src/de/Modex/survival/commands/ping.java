@@ -10,6 +10,10 @@ import org.bukkit.craftbukkit.v1_15_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import ru.tehkode.permissions.bukkit.PermissionsEx;
 
+/*
+    Replaced with network wide ping command in ArcherionBungee
+ */
+@Deprecated
 public class ping implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {

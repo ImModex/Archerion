@@ -2,6 +2,7 @@ package de.Modex.survival;
 
 import de.Modex.survival.commands.*;
 import de.Modex.survival.listener.*;
+import de.Modex.survival.utils.Config;
 import de.Modex.survival.utils.Countdown;
 import de.Modex.survival.utils.Data;
 import org.bukkit.Bukkit;
@@ -49,13 +50,14 @@ public class Main extends JavaPlugin {
         getCommand("back").setExecutor(new back());
         //getCommand("whisper").setExecutor(new whisper());
         //getCommand("reply").setExecutor(new reply());
+        getCommand("notify").setExecutor(new notify());
         getCommand("home").setExecutor(new home());
         getCommand("sethome").setExecutor(new sethome());
         getCommand("delhome").setExecutor(new delhome());
         getCommand("homes").setExecutor(new homes());
         getCommand("restore").setExecutor(new restore());
         getCommand("deaths").setExecutor(new deaths());
-        getCommand("ping").setExecutor(new ping());
+        //getCommand("ping").setExecutor(new ping());
         Bukkit.getPluginManager().registerEvents(new InventoryCloseListener(), this);
         Bukkit.getPluginManager().registerEvents(new CreatureSpawnEvent(), this);
         Bukkit.getPluginManager().registerEvents(new InventoryClickListener(), this);
@@ -82,7 +84,16 @@ public class Main extends JavaPlugin {
             public void count(int t) {
                 if (t == 30 || t == 20 || t == 10 || t == 3 || t == 2 || t == 1) {
                     for (Player all : Bukkit.getOnlinePlayers()) {
-                        all.sendMessage(Data.prefix + "§7Ground items will be cleared in " + t + " seconds.");
+                        if (Config.config.contains("ClearNotification." + all.getUniqueId()) && Config.config.getBoolean("ClearNotification." + all.getUniqueId())) {
+                            all.sendMessage(Data.prefix + "§7Ground items will be cleared in " + t + " seconds.");
+                        } else if (!Config.config.contains("ClearNotification." + all.getUniqueId())) {
+                            Config.config.set("ClearNotification." + all.getUniqueId(), true);
+                            try {
+                                Config.config.save(Config.configFile);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
                     }
                 }
 
@@ -100,7 +111,16 @@ public class Main extends JavaPlugin {
                     }
 
                     for (Player all : Bukkit.getOnlinePlayers()) {
-                        all.sendMessage(Data.prefix + "§7Ground items have been cleared.");
+                        if (Config.config.contains("ClearNotification." + all.getUniqueId()) && Config.config.getBoolean("ClearNotification." + all.getUniqueId())) {
+                            all.sendMessage(Data.prefix + "§7Ground items have been cleared.");
+                        } else if (!Config.config.contains("ClearNotification." + all.getUniqueId())) {
+                            Config.config.set("ClearNotification." + all.getUniqueId(), true);
+                            try {
+                                Config.config.save(Config.configFile);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
                     }
                 }
             }

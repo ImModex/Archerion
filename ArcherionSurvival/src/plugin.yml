@@ -15,10 +15,6 @@ commands:
   setwarp:
   warp:
   xpt:
-  whisper:
-    aliases: [w, pm, dm]
-  reply:
-    aliases: [r, rep]
   home:
     aliases: [h]
   sethome:
@@ -30,4 +26,5 @@ commands:
     aliases: [bi]
   restore:
   deaths:
-  ping:
+  notify:
+    aliases: [notifications, clearnotification, notification]
