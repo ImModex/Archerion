@@ -1,9 +1,6 @@
 package de.Modex.bungee;
 
-import de.Modex.bungee.commands.lobby;
-import de.Modex.bungee.commands.maintenance;
-import de.Modex.bungee.commands.reply;
-import de.Modex.bungee.commands.whisper;
+import de.Modex.bungee.commands.*;
 import de.Modex.bungee.listener.ServerConnectListener;
 import de.Modex.bungee.utils.Data;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -23,6 +20,7 @@ public class Main extends Plugin {
         getProxy().getPluginManager().registerCommand(this, new whisper());
         getProxy().getPluginManager().registerCommand(this, new reply());
         getProxy().getPluginManager().registerCommand(this, new maintenance());
+        getProxy().getPluginManager().registerCommand(this, new ping());
         startTablistTimer();
 
         System.out.println(Data.prefix + "Plugin has been enabled!");
