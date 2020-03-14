@@ -75,6 +75,7 @@ public class home implements CommandExecutor {
 
         Bukkit.getScheduler().runTaskLaterAsynchronously(Main.instance, () -> {
             Data.teleportTestCooldown.remove(p.getUniqueId());
+            p.sendMessage(Data.prefix + "§7You can now teleport again.");
         }, 20 * 60 * 15);
     }
 }

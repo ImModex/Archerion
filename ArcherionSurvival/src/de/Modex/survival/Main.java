@@ -82,7 +82,13 @@ public class Main extends JavaPlugin {
 
             @Override
             public void count(int t) {
-                if (t == 30 || t == 20 || t == 10 || t == 3 || t == 2 || t == 1) {
+                if(t == 30) {
+                    for(Player all : Bukkit.getOnlinePlayers()) {
+                        all.sendMessage(Data.prefix + "§7Ground items will be cleared in " + t + " seconds.");
+                    }
+                }
+
+                if (t == 20 || t == 10 || t == 3 || t == 2 || t == 1) {
                     for (Player all : Bukkit.getOnlinePlayers()) {
                         if (Config.config.contains("ClearNotification." + all.getUniqueId()) && Config.config.getBoolean("ClearNotification." + all.getUniqueId())) {
                             all.sendMessage(Data.prefix + "§7Ground items will be cleared in " + t + " seconds.");

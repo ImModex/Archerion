@@ -24,7 +24,7 @@ public class staff extends Command {
             }
 
             for(ProxiedPlayer staff : ProxyServer.getInstance().getPlayers()) {
-                if(staff.hasPermission("bungee.staff"))
+                if(staff.hasPermission("bungee.staffchat"))
                     staff.sendMessage(ChatMessageType.CHAT, new TextComponent(Data.staffChatPrefix + "§e" + sender.getName() + " §7» §6" + msg.toString()));
             }
 
