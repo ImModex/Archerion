@@ -17,7 +17,7 @@ public class BanManager {
         long millis = seconds * 1000;
         long end = current + millis;
 
-        if(seconds == -1)
+        if (seconds == -1)
             end = -1;
 
         MySQL.update("INSERT INTO banned (uuid, reason, end_date, banned_by) VALUES ('" + uuid + "', '" + reason + "', '" + end + "', '" + banned_by + "')");
@@ -75,7 +75,7 @@ public class BanManager {
         long current = System.currentTimeMillis();
         long end = getEnd(uuid);
 
-        if(end == -1) {
+        if (end == -1) {
             return "§4PERMANENT";
         }
 
@@ -87,27 +87,27 @@ public class BanManager {
         long days = 0;
         long weeks = 0;
 
-        while(millis > 1000) {
+        while (millis > 1000) {
             millis -= 1000;
             seconds++;
         }
 
-        while(seconds > 60) {
+        while (seconds > 60) {
             seconds -= 60;
             minutes++;
         }
 
-        while(minutes > 60) {
+        while (minutes > 60) {
             minutes -= 60;
             hours++;
         }
 
-        while(hours > 24) {
+        while (hours > 24) {
             hours -= 24;
             days++;
         }
 
-        while(days > 7) {
+        while (days > 7) {
             days -= 7;
             weeks++;
         }
@@ -143,14 +143,29 @@ public class BanManager {
             e.printStackTrace();
         }
 
-        if(banned_by != null) {
+        if (banned_by != null) {
             OfflinePlayer ret = MojangAPI.loadPlayer(uuid);
 
-            if(ret != null)
+            if (ret != null)
                 return ret.getName();
             else
                 return null;
         } else
             return null;
+    }
+
+    public static Rank getRank(UUID uuid) {
+        List<String> list = new ArrayList<>();
+        ResultSet rs = MySQL.getResult("SELECT * FROM permissions_inheritance WHERE uuid='" + uuid + "'");
+
+        try {
+            while (rs.next()) {
+                list.add(rs.getString("parent"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return Rank.getHighest(list);
     }
 }

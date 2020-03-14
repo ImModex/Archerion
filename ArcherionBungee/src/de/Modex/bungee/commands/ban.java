@@ -7,12 +7,11 @@ import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
+import net.md_5.bungee.api.plugin.TabExecutor;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
-public class ban extends Command {
+public class ban extends Command implements TabExecutor {
 
     public ban() {
         super("ban", "bungee.ban");
@@ -27,17 +26,30 @@ public class ban extends Command {
         if (args.length != 0) {
             String targetName = args[0];
 
-            if(ProxyServer.getInstance().getPlayer(targetName).equals(sender)) {
-                sender.sendMessage(new TextComponent(Data.prefix + "§cYou can now ban yourself!"));
-                return;
+            if(sender instanceof ProxiedPlayer) {
+                if(sender.getName().toLowerCase().equals(targetName.toLowerCase())) {
+                    sender.sendMessage(new TextComponent(Data.prefix + "§cYou can not ban yourself!"));
+                    return;
+                }
             }
 
             OfflinePlayer target = MojangAPI.loadPlayer(targetName);
 
             if (target != null) {
 
+                if (sender instanceof ProxiedPlayer) {
+                    ProxiedPlayer p = (ProxiedPlayer) sender;
+
+                    if (!p.getUniqueId().equals(UUID.fromString("3903a9fc-a85c-45ef-84dd-5515d81e58fd"))) {
+                        if (BanManager.getRank(p.getUniqueId()).getHierarchy() <= BanManager.getRank(target.getUUID()).getHierarchy()) {
+                            sender.sendMessage(new TextComponent(Data.prefix + "§cYou can not ban someone with equal or higher rank than you!"));
+                            return;
+                        }
+                    }
+                }
+
                 String banned_by = null;
-                if(sender instanceof ProxiedPlayer)
+                if (sender instanceof ProxiedPlayer)
                     banned_by = ((ProxiedPlayer) sender).getUniqueId().toString();
                 else
                     banned_by = "CONSOLE";
@@ -110,7 +122,6 @@ public class ban extends Command {
                         }
 
                         ProxyServer.getInstance().getConsole().sendMessage(new TextComponent(banMessage.replaceAll("%time%", "PERMANENT")));
-                        ProxyServer.getInstance().getPlayer(target.getUUID()).disconnect(new TextComponent(""));
                     } else {
                         BanManager.ban(target.getUUID(), reason.toString(), time, banned_by);
                         for (ProxiedPlayer staff : ProxyServer.getInstance().getPlayers()) {
@@ -131,5 +142,19 @@ public class ban extends Command {
         } else {
             sender.sendMessage(new TextComponent(Data.prefix + "§c/ban <Player> [Time] <Reason>"));
         }
+    }
+
+    @Override
+    public Iterable<String> onTabComplete(CommandSender sender, String[] args) {
+        Set<String> matches = new HashSet<>();
+        if (args.length == 1) {
+            String search = args[0].toLowerCase();
+            for (ProxiedPlayer player : ProxyServer.getInstance().getPlayers()) {
+                if (player.getName().toLowerCase().startsWith(search) && !player.getName().equals(sender.getName())) {
+                    matches.add(player.getName());
+                }
+            }
+        }
+        return matches;
     }
 }

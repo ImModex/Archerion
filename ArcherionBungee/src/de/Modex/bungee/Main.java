@@ -4,6 +4,7 @@ import de.Modex.bungee.commands.*;
 import de.Modex.bungee.listener.LoginListener;
 import de.Modex.bungee.listener.PostLoginListener;
 import de.Modex.bungee.listener.ServerConnectListener;
+import de.Modex.bungee.listener.ServerKickListener;
 import de.Modex.bungee.utils.BanManager;
 import de.Modex.bungee.utils.Data;
 import de.Modex.bungee.utils.MySQL;
@@ -23,18 +24,23 @@ public class Main extends Plugin {
 
         instance = this;
 
-        getProxy().getPluginManager().registerListener(this, new ServerConnectListener());
-        getProxy().getPluginManager().registerListener(this, new PostLoginListener());
         getProxy().getPluginManager().registerListener(this, new LoginListener());
+        getProxy().getPluginManager().registerListener(this, new PostLoginListener());
+        getProxy().getPluginManager().registerListener(this, new ServerConnectListener());
+        getProxy().getPluginManager().registerListener(this, new ServerKickListener());
 
-        getProxy().getPluginManager().registerCommand(this, new lobby());
-        getProxy().getPluginManager().registerCommand(this, new whisper());
-        getProxy().getPluginManager().registerCommand(this, new reply());
-        getProxy().getPluginManager().registerCommand(this, new maintenance());
-        getProxy().getPluginManager().registerCommand(this, new ping());
-        getProxy().getPluginManager().registerCommand(this, new ban());
-        getProxy().getPluginManager().registerCommand(this, new check());
-        getProxy().getPluginManager().registerCommand(this, new unban());
+        getProxy().getPluginManager().registerCommand(this, new ban()); // bungee.ban bungee.ban.chat
+        getProxy().getPluginManager().registerCommand(this, new check()); // bungee.check
+        getProxy().getPluginManager().registerCommand(this, new jump()); // bungee.jump
+        getProxy().getPluginManager().registerCommand(this, new kick()); // bungee.kick bungee.kick.chat
+        getProxy().getPluginManager().registerCommand(this, new lobby()); // bungee.lobby
+        getProxy().getPluginManager().registerCommand(this, new maintenance()); // bungee.maintenance bungee.maintenance.bypass
+        getProxy().getPluginManager().registerCommand(this, new ping()); // bungee.ping
+        getProxy().getPluginManager().registerCommand(this, new reply()); // bungee.whisper
+        getProxy().getPluginManager().registerCommand(this, new staff()); // bungee.staffchat
+        getProxy().getPluginManager().registerCommand(this, new unban()); // bungee.unban
+        getProxy().getPluginManager().registerCommand(this, new whisper()); // bungee.whisper
+
         startTablistTimer();
 
         MySQL.connect();

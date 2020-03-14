@@ -61,7 +61,7 @@ public class whisper extends Command implements TabExecutor {
         if (args.length == 1) {
             String search = args[0].toLowerCase();
             for (ProxiedPlayer player : ProxyServer.getInstance().getPlayers()) {
-                if (player.getName().toLowerCase().startsWith(search)) {
+                if (player.getName().toLowerCase().startsWith(search) && !player.getName().equals(sender.getName())) {
                     matches.add(player.getName());
                 }
             }

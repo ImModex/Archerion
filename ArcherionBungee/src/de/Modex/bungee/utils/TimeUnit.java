@@ -52,8 +52,8 @@ public enum TimeUnit {
         for (TimeUnit units : TimeUnit.values()) {
             List<String> shorterList = units.getShorter();
 
-            for(String shorter : shorterList) {
-                if(shorter.toLowerCase().equals(unit.toLowerCase())) {
+            for (String shorter : shorterList) {
+                if (shorter.toLowerCase().equals(unit.toLowerCase())) {
                     return units;
                 }
             }
