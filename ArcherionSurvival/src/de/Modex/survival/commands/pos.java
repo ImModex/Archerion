@@ -18,7 +18,6 @@ public class pos implements CommandExecutor {
         if (args.length == 0) {
             p.sendMessage(Data.prefix + "§7Your coordinates » §e" + getEnvironment(p.getWorld()) + " §7| §e" + (int) p.getLocation().getX() + " §7| §e" + (int) p.getLocation().getY() + " §7| §e" + (int) p.getLocation().getZ());
         } else {
-
             Player target = Bukkit.getPlayer(args[0]);
             if (target != null) {
                 p.sendMessage(Data.prefix + "§a" + target.getDisplayName() + "§7's coordinates » §e" + getEnvironment(p.getWorld()) + " §7| §e" + (int) target.getLocation().getX() + " §7| §e" + (int) target.getLocation().getY() + " §7| §e" + (int) target.getLocation().getZ());

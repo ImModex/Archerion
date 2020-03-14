@@ -1,5 +1,6 @@
 package de.Modex.bungee.listener;
 
+import de.Modex.bungee.utils.BanManager;
 import de.Modex.bungee.utils.Config;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
@@ -16,6 +17,7 @@ public class ServerConnectListener implements Listener {
         ProxiedPlayer p = e.getPlayer();
 
         if (p.getServer() == null) {
+
             if (Config.config.getBoolean("maintenance") && Config.config.getBoolean("maintenance")) {
                 if (!p.hasPermission("bungee.maintenance.bypass")) {
                     p.disconnect(new TextComponent("§cThis server is in maintenance mode!"));
