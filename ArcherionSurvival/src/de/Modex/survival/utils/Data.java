@@ -1,5 +1,6 @@
 package de.Modex.survival.utils;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitTask;
@@ -19,4 +20,10 @@ public class Data {
     public static HashMap<UUID, Location> teleportCooldown = new HashMap<>();
     public static HashMap<UUID, BukkitTask> teleportTask = new HashMap<>();
     public static ArrayList<UUID> teleportTestCooldown = new ArrayList<>();
+    public static ArrayList<Player> playersInEnd = new ArrayList<>();
+
+    public static BukkitTask fireBallTask = null;
+    public static BukkitTask lightningTask = null;
+    public static BukkitTask mobSpawnTask = null;
+    public static BukkitTask mobTargetTask = null;
 }

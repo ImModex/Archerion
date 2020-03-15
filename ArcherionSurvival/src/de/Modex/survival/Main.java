@@ -5,6 +5,7 @@ import de.Modex.survival.listener.*;
 import de.Modex.survival.utils.Config;
 import de.Modex.survival.utils.Countdown;
 import de.Modex.survival.utils.Data;
+import de.Modex.survival.utils.EndfightTimers;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.*;
@@ -58,16 +59,24 @@ public class Main extends JavaPlugin {
         getCommand("restore").setExecutor(new restore());
         getCommand("deaths").setExecutor(new deaths());
         //getCommand("ping").setExecutor(new ping());
-        Bukkit.getPluginManager().registerEvents(new InventoryCloseListener(), this);
-        Bukkit.getPluginManager().registerEvents(new CreatureSpawnEvent(), this);
-        Bukkit.getPluginManager().registerEvents(new InventoryClickListener(), this);
-        Bukkit.getPluginManager().registerEvents(new JoinQuitListener(), this);
-        Bukkit.getPluginManager().registerEvents(new PlayerDeathListener(), this);
-        Bukkit.getPluginManager().registerEvents(new PlayerDamagedListener(), this);
-        Bukkit.getPluginManager().registerEvents(new PlayerMoveListener(), this);
-        Bukkit.getPluginManager().registerEvents(new SpawnerBreakListener(), this);
-        Bukkit.getPluginManager().registerEvents(new BlockBreakListener(), this);
 
+        Bukkit.getPluginManager().registerEvents(new BlockBreakListener(), this);
+        Bukkit.getPluginManager().registerEvents(new BlockPlaceListener(), this);
+        Bukkit.getPluginManager().registerEvents(new CreatureSpawnListener(), this);
+        Bukkit.getPluginManager().registerEvents(new EntityDamageByEntityListener(), this);
+        Bukkit.getPluginManager().registerEvents(new EndfightStartListener(), this);
+        Bukkit.getPluginManager().registerEvents(new EntityDamageByEntityListener(), this);
+        Bukkit.getPluginManager().registerEvents(new EntityDeathListener(), this);
+        Bukkit.getPluginManager().registerEvents(new InventoryClickListener(), this);
+        Bukkit.getPluginManager().registerEvents(new InventoryCloseListener(), this);
+        Bukkit.getPluginManager().registerEvents(new JoinQuitListener(), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerDamagedListener(), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerDeathListener(), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerMoveListener(), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerTeleportListener(), this);
+        Bukkit.getPluginManager().registerEvents(new SpawnerBreakListener(), this);
+
+        startEndCheckTimer();
         startCleanupTimer();
 
         System.out.println(Data.prefix + "Plugin has been loaded!");
@@ -77,13 +86,32 @@ public class Main extends JavaPlugin {
         System.out.println(Data.prefix + "Plugin has been unloaded!");
     }
 
+    private void startEndCheckTimer() {
+        World end = Bukkit.getWorld("world_the_end");
+        Bukkit.getScheduler().runTaskTimer(this, () -> {
+            if (end != null) {
+                if (end.getPlayers().isEmpty()) {
+                    EndfightTimers.stopFireballTask();
+                    EndfightTimers.stopLightningTask();
+                    EndfightTimers.stopMobSpawnTask();
+                    EndfightTimers.stopMobTargetTask();
+                } else {
+                    //EndfightTimers.startFireballTask();
+                    EndfightTimers.startLightningTask();
+                    EndfightTimers.startMobSpawnTask();
+                    EndfightTimers.startMobTargetTask();
+                }
+            }
+        }, 0, 20);
+    }
+
     private void startCleanupTimer() {
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> new Countdown(30, this) {
 
             @Override
             public void count(int t) {
-                if(t == 30) {
-                    for(Player all : Bukkit.getOnlinePlayers()) {
+                if (t == 30) {
+                    for (Player all : Bukkit.getOnlinePlayers()) {
                         all.sendMessage(Data.prefix + "§7Ground items will be cleared in " + t + " seconds.");
                     }
                 }
@@ -107,10 +135,12 @@ public class Main extends JavaPlugin {
                     for (World world : Bukkit.getWorlds()) {
                         world.getEntities().stream().filter(Item.class::isInstance).forEach(Entity::remove);
 
-                        for (Entity e : world.getEntities()) {
-                            if (e instanceof Monster || e.getType().equals(EntityType.PHANTOM) && !e.getType().equals(EntityType.ENDER_CRYSTAL) && !e.getType().equals(EntityType.ENDER_DRAGON) && !e.getType().equals(EntityType.WITHER_SKULL) && !e.getType().equals(EntityType.WITHER) && !e.getType().equals(EntityType.HORSE) && !e.getType().equals(EntityType.SKELETON_HORSE) && !e.getType().equals(EntityType.ZOMBIE_HORSE) && !e.getType().equals(EntityType.VILLAGER) && !e.getType().equals(EntityType.ZOMBIE_VILLAGER) && !e.getType().equals(EntityType.MINECART) && !e.getType().equals(EntityType.MINECART_CHEST) && !e.getType().equals(EntityType.MINECART_FURNACE) && !e.getType().equals(EntityType.MINECART_HOPPER) && !e.getType().equals(EntityType.MINECART_MOB_SPAWNER)) {
-                                if (e.getCustomName() == null) {
-                                    e.remove();
+                        if (!world.equals(Bukkit.getWorld("world_the_end"))) {
+                            for (Entity e : world.getEntities()) {
+                                if (e instanceof Monster || e.getType().equals(EntityType.PHANTOM) && !e.getType().equals(EntityType.ENDER_CRYSTAL) && !e.getType().equals(EntityType.ENDER_DRAGON) && !e.getType().equals(EntityType.WITHER_SKULL) && !e.getType().equals(EntityType.WITHER) && !e.getType().equals(EntityType.HORSE) && !e.getType().equals(EntityType.SKELETON_HORSE) && !e.getType().equals(EntityType.ZOMBIE_HORSE) && !e.getType().equals(EntityType.VILLAGER) && !e.getType().equals(EntityType.ZOMBIE_VILLAGER) && !e.getType().equals(EntityType.MINECART) && !e.getType().equals(EntityType.MINECART_CHEST) && !e.getType().equals(EntityType.MINECART_FURNACE) && !e.getType().equals(EntityType.MINECART_HOPPER) && !e.getType().equals(EntityType.MINECART_MOB_SPAWNER)) {
+                                    if (e.getCustomName() == null) {
+                                        e.remove();
+                                    }
                                 }
                             }
                         }

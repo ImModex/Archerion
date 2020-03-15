@@ -1,6 +1,10 @@
 package de.Modex.survival.listener;
 
+import de.Modex.survival.Main;
 import de.Modex.survival.utils.Data;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
