@@ -59,7 +59,8 @@ public class Main extends Plugin {
         getProxy().getScheduler().schedule(this, () -> {
 
             for (ProxiedPlayer player : getProxy().getPlayers()) {
-                player.setTabHeader(new TextComponent(Data.header.replaceAll("%server%", player.getServer().getInfo().getName())), new TextComponent(Data.footer.replaceAll("%players%", getProxy().getPlayers().size() + "").replaceAll("%ping%", player.getPing() + "")));
+                if (player.isConnected())
+                    player.setTabHeader(new TextComponent(Data.header.replaceAll("%server%", player.getServer().getInfo().getName())), new TextComponent(Data.footer.replaceAll("%players%", getProxy().getPlayers().size() + "").replaceAll("%ping%", player.getPing() + "")));
             }
 
         }, 0, 1, TimeUnit.SECONDS);
